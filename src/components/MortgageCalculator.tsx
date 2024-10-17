@@ -1,12 +1,57 @@
 import myCalc from '../assets/images/icon-calculator.svg';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 const MortgageCalculator = () => {
+	type FormFields = {
+		mortgageAmount: string;
+		mortgageTerm: string;
+		mortgageRate: string;
+		mortgageType: string;
+	};
+
+	const { register, handleSubmit } = useForm<FormFields>();
+
+	const onSubmitForm: SubmitHandler<FormFields> = (data) => {
+		const { mortgageAmount, mortgageRate, mortgageTerm, mortgageType } = data;
+		console.log(mortgageType);
+
+		/*
+	M = P* (r * (1 + r)^n) / ((1 + r)^n - 1)
+
+where M is monthly payment, P is the principal amount, r is the monthly interest rate, n is number of payments in months	*/
+
+		//convert to numbers
+		const mortgageAmountNumber = parseInt(mortgageAmount, 10);
+		const mortgageRateNumber = parseFloat(mortgageRate);
+		const mortgageTermNumber = parseInt(mortgageTerm, 10);
+
+		const monthlyRate = mortgageRateNumber / (100 * 12);
+		const numberOfPayments = mortgageTermNumber * 12;
+
+		const monthlyPayments =
+			(mortgageAmountNumber *
+				(monthlyRate * (1 + monthlyRate) ** numberOfPayments)) /
+			((1 + monthlyRate) ** numberOfPayments - 1);
+
+		const totalPayments = monthlyPayments * numberOfPayments;
+		const interest = totalPayments - mortgageAmountNumber;
+
+		const roundedTotalPayments = totalPayments.toFixed(2);
+		const roundedInterest = interest.toFixed(2);
+
+		if (mortgageType === 'Repayment') {
+			console.log(roundedTotalPayments);
+		} else {
+			console.log(roundedInterest);
+		}
+	};
+
 	return (
 		<>
 			<div className="flex flex-1 flex-col justify-around m-4  b-2 pl-2 md:bg-white md:m-0 md:p-10 md:rounded-l-3xl">
 				<h1 className="font-bold text-xl">Mortgage Calculator</h1>
 				<p className="underline underline-offset-1 text-slate-700">Clear All</p>
-				<form className="mt-4 w-[98%]">
+				<form className="mt-4 w-[98%]" onSubmit={handleSubmit(onSubmitForm)}>
 					<label>
 						Mortgage Amount <br></br>
 						<div className="flex border border-slate-300 mt-2 rounded-md mb-7">
@@ -14,6 +59,7 @@ const MortgageCalculator = () => {
 								£
 							</span>
 							<input
+								{...register('mortgageAmount')}
 								type="text"
 								placeholder="300,000"
 								className="w-[92%] pl-3 font-bold text-slate-900 text-lg rounded-r-lg"
@@ -25,6 +71,7 @@ const MortgageCalculator = () => {
 						Mortgage Term <br></br>
 						<div className="flex border border-slate-300 mt-2 mb-7 rounded-md">
 							<input
+								{...register('mortgageTerm')}
 								type="text"
 								placeholder="25"
 								className="w-[92%] pl-5 font-bold text-slate-900 text-lg rounded-l-lg"
@@ -39,6 +86,7 @@ const MortgageCalculator = () => {
 						Interest Rate <br></br>
 						<div className="flex border border-slate-300 mt-2 mb-7 rounded-md">
 							<input
+								{...register('mortgageRate')}
 								type="text"
 								placeholder="5.25"
 								className="w-[92%] pl-5 font-bold text-slate-900 text-lg rounded-l-lg"
@@ -56,7 +104,8 @@ const MortgageCalculator = () => {
 								<input
 									type="radio"
 									value="Repayment"
-									name="mortgage-type"
+									// name="mortgage-type"
+									{...register('mortgageType')}
 									className="mx-4"
 								/>
 								Repayment
@@ -68,9 +117,10 @@ const MortgageCalculator = () => {
 							<div className="border border-slate-300 rounded-md p-3 mb-4 md:bg-white">
 								<input
 									type="radio"
-									name="mortgage-type"
-									className="mx-4"
+									// name="mortgage-type"
 									value="Interest-only"
+									{...register('mortgageType')}
+									className="mx-4"
 								/>
 								Interest Only
 							</div>
