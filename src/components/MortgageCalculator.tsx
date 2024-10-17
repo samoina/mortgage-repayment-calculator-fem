@@ -3,7 +3,7 @@ import myCalc from '../assets/images/icon-calculator.svg';
 const MortgageCalculator = () => {
 	return (
 		<>
-			<div className="flex flex-col justify-around m-4  b-2 pl-2">
+			<div className="flex flex-1 flex-col justify-around m-4  b-2 pl-2 md:bg-white md:m-0 md:p-10 md:rounded-l-3xl">
 				<h1 className="font-bold text-xl">Mortgage Calculator</h1>
 				<p className="underline underline-offset-1 text-slate-700">Clear All</p>
 				<form className="mt-4 w-[98%]">
@@ -52,7 +52,7 @@ const MortgageCalculator = () => {
 					<fieldset>
 						<legend>Mortgage type</legend>
 						<label>
-							<div className="border border-slate-300 rounded-md p-3 mt-2">
+							<div className="border border-slate-300 rounded-md p-3 mt-2 md:bg-white">
 								<input
 									type="radio"
 									value="Repayment"
@@ -65,7 +65,7 @@ const MortgageCalculator = () => {
 						<br />
 
 						<label>
-							<div className="border border-slate-300 rounded-md p-3 mb-4">
+							<div className="border border-slate-300 rounded-md p-3 mb-4 md:bg-white">
 								<input
 									type="radio"
 									name="mortgage-type"
