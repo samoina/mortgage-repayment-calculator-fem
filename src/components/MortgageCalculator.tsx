@@ -2,6 +2,8 @@ import myCalc from '../assets/images/icon-calculator.svg';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Results from './Results';
 import ResultsShowing from './ResultsShowing';
+import { useHookstate } from '@hookstate/core';
+import { GlobalState } from '../lib/store/Global';
 
 const MortgageCalculator = () => {
 	type FormFields = {
@@ -10,6 +12,10 @@ const MortgageCalculator = () => {
 		mortgageRate: string;
 		mortgageType: string;
 	};
+
+	//get state from the global state
+	const { monthlyRepayments, interestOnly, totalRepayments, interestRadio } =
+		useHookstate(GlobalState);
 
 	const {
 		register,
@@ -45,10 +51,24 @@ where M is monthly payment, P is the principal amount, r is the monthly interest
 		const roundedTotalPayments = totalPayments.toFixed(2);
 		const roundedInterest = interest.toFixed(2);
 
+		GlobalState.set({
+			monthlyRepayments: monthlyPayments.toFixed(2).toLocaleString('en-us'),
+			totalRepayments: roundedTotalPayments.toLocaleString('en-us'),
+			interestOnly: roundedInterest.toLocaleString('en-us'),
+		});
+
+		console.log(
+			monthlyPayments.toFixed(2),
+			roundedTotalPayments,
+			roundedInterest
+		);
+
 		if (mortgageType === 'Repayment') {
-			console.log(roundedTotalPayments);
+			console.log(GlobalState.monthlyRepayments);
+			GlobalState.repaymentRadio.set(true);
 		} else {
 			console.log(roundedInterest);
+			GlobalState.interestRadio.set(true);
 		}
 	};
 
