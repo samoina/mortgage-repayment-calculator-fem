@@ -79,6 +79,10 @@ export default {
 };
 ```
 
+#### Global state  using @hookstate/core package
+
+
+
 ### Continued development
 
 ### Useful resources

@@ -1,5 +1,7 @@
 import myCalc from '../assets/images/icon-calculator.svg';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import Results from './Results';
+import ResultsShowing from './ResultsShowing';
 
 const MortgageCalculator = () => {
 	type FormFields = {
@@ -9,7 +11,11 @@ const MortgageCalculator = () => {
 		mortgageType: string;
 	};
 
-	const { register, handleSubmit } = useForm<FormFields>();
+	const {
+		register,
+		handleSubmit,
+		formState: { isSubmitSuccessful, errors },
+	} = useForm<FormFields>();
 
 	const onSubmitForm: SubmitHandler<FormFields> = (data) => {
 		const { mortgageAmount, mortgageRate, mortgageTerm, mortgageType } = data;
@@ -54,24 +60,47 @@ where M is monthly payment, P is the principal amount, r is the monthly interest
 				<form className="mt-4 w-[98%]" onSubmit={handleSubmit(onSubmitForm)}>
 					<label>
 						Mortgage Amount <br></br>
-						<div className="flex border border-slate-300 mt-2 rounded-md mb-7">
+						<div className="flex border border-slate-300 mt-2 rounded-md mb-1">
 							<span className="bg-slate-100 w-[8%] p-2 text-slate-700 text-lg flex justify-center rounded-l-md font-bold">
 								£
 							</span>
 							<input
-								{...register('mortgageAmount')}
+								{...register('mortgageAmount', {
+									required: 'Add a mortgage Amount',
+									validate: (value) => {
+										const parsedValue = parseFloat(value);
+										if (isNaN(parsedValue))
+											return 'Mortgage amount must be a number';
+										if (parsedValue < 0)
+											return 'Mortgage amount cannot be negative';
+									},
+								})}
 								type="text"
 								placeholder="300,000"
 								className="w-[92%] pl-3 font-bold text-slate-900 text-lg rounded-r-lg"
 							/>
 						</div>
+						{errors.mortgageAmount && (
+							<div className="text-red mb-7">
+								{errors.mortgageAmount.message}
+							</div>
+						)}
 					</label>
 
 					<label>
 						Mortgage Term <br></br>
-						<div className="flex border border-slate-300 mt-2 mb-7 rounded-md">
+						<div className="flex border border-slate-300 mt-2 mb-1 rounded-md">
 							<input
-								{...register('mortgageTerm')}
+								{...register('mortgageTerm', {
+									required: 'Add the term limit for the mortgage',
+									validate: (val) => {
+										const parsedVal = parseFloat(val);
+										if (isNaN(parsedVal))
+											return 'Mortgage Term must be a number';
+										if (parsedVal < 0)
+											return 'Mortgage term cannot be less than 0';
+									},
+								})}
 								type="text"
 								placeholder="25"
 								className="w-[92%] pl-5 font-bold text-slate-900 text-lg rounded-l-lg"
@@ -80,13 +109,26 @@ where M is monthly payment, P is the principal amount, r is the monthly interest
 								years
 							</span>
 						</div>
+						{errors.mortgageTerm && (
+							<div className="text-red mb-7">{errors.mortgageTerm.message}</div>
+						)}
 					</label>
 
 					<label>
 						Interest Rate <br></br>
-						<div className="flex border border-slate-300 mt-2 mb-7 rounded-md">
+						<div className="flex border border-slate-300 mt-2 mb-1 rounded-md">
 							<input
-								{...register('mortgageRate')}
+								{...register('mortgageRate', {
+									required:
+										'Add a mortgage interest rate that is equal to or more than 0%',
+									validate: (val) => {
+										const parsedVal = parseFloat(val);
+										if (isNaN(parsedVal))
+											return 'Mortgage Rate must be a number';
+										if (parsedVal <= 0)
+											return 'Mortgage Rate cannot be less than or equal to 0';
+									},
+								})}
 								type="text"
 								placeholder="5.25"
 								className="w-[92%] pl-5 font-bold text-slate-900 text-lg rounded-l-lg"
@@ -95,6 +137,9 @@ where M is monthly payment, P is the principal amount, r is the monthly interest
 								%
 							</span>
 						</div>
+						{errors.mortgageRate && (
+							<div className="text-red mb-7">{errors.mortgageRate.message}</div>
+						)}
 					</label>
 
 					<fieldset>
@@ -105,7 +150,9 @@ where M is monthly payment, P is the principal amount, r is the monthly interest
 									type="radio"
 									value="Repayment"
 									// name="mortgage-type"
-									{...register('mortgageType')}
+									{...register('mortgageType', {
+										required: 'Please select a mortgage type',
+									})}
 									className="mx-4"
 								/>
 								Repayment
@@ -119,12 +166,17 @@ where M is monthly payment, P is the principal amount, r is the monthly interest
 									type="radio"
 									// name="mortgage-type"
 									value="Interest-only"
-									{...register('mortgageType')}
+									{...register('mortgageType', {
+										required: 'Please select a mortgage type',
+									})}
 									className="mx-4"
 								/>
 								Interest Only
 							</div>
 						</label>
+						{errors.mortgageType && (
+							<div className="text-red mb-7">{errors.mortgageType.message}</div>
+						)}
 					</fieldset>
 
 					<button
@@ -135,6 +187,8 @@ where M is monthly payment, P is the principal amount, r is the monthly interest
 					</button>
 				</form>
 			</div>
+
+			{isSubmitSuccessful ? <ResultsShowing /> : <Results />}
 		</>
 	);
 };
