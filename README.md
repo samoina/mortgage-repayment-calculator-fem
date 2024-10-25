@@ -13,8 +13,6 @@ _Mortgage Calculator Clear All Mortgage Amount Mortgage Term Interest Rate Mortg
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
 - [Author](#author)
 - [Acknowledgments](#acknowledgments)
 
@@ -36,7 +34,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [Github](https://github.com/samoina/mortgage-repayment-calculator-fem)
 - Live Site URL: [Add live site URL here](https://your-live-site-url.com)
 
 ## My process
@@ -49,45 +47,13 @@ Users should be able to:
 
 ### What I learned
 
-#### Incorporating the style guide with Tailwind css
+#### Using React Hook Form
 
-I needed to do this under the `theme.extend` section to create the corresponding classes and font as below. I also imported the link for the font in the index.html head section. Within my code, I then will prefix the font from the style-guide using `font-`
+and understanding how to register the inputs, handle the submit from the useForm as well as extract the errors from formState.
 
-```js
-/** @type {import('tailwindcss').Config} */
-export default {
-	content: ['./src/**/*.{html,js, ts, jsx, tsx}'],
-	theme: {
-		extend: {
-			colors: {
-				lime: 'hsl(61, 70%, 52%)',
-				red: 'hsl(4, 69%, 50%)',
-				slate: {
-					100: 'hsl(202, 86%, 94%)',
-					300: 'hsl(203, 41%, 72%)',
-					500: 'hsl(200, 26%, 54%)',
-					700: 'hsl(200, 24%, 40%)',
-					900: 'hsl(202, 55%, 16%)',
-				},
-			},
-			fontFamily: {
-				jakarta: ['Plus Jakarta Sans', 'sans-serif'],
-			},
-		},
-	},
-	plugins: [],
-};
-```
+#### Global state using @hookstate/core package
 
-#### Global state  using @hookstate/core package
-
-
-
-### Continued development
-
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
+I managed my state using hookState, created Global state and displayed the results dynamically by changing the Result component depending on the radio button clicked.
 
 ## Author
 

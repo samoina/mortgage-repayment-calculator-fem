@@ -13,7 +13,7 @@ const ResultsShowing = () => {
 				adjust the results, edit the form and click 'calculate repayments'
 				again.
 			</p>
-			<div className="flex flex-col gap-3 rounded-lg border-t-4 p-3 border-t-lime bg-slate-950">
+			<div className="flex flex-col gap-3 rounded-lg  bg-slate-950 border border-t-4 p-3 border-t-lime">
 				{interestRadio.value ? (
 					<div>
 						<h2 className="text-slate-100">Your Interest accumulated</h2>
