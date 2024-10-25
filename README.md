@@ -2,8 +2,6 @@
 
 This is a solution to the [Mortgage repayment calculator challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/mortgage-repayment-calculator-Galx1LXK73). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-_Mortgage Calculator Clear All Mortgage Amount Mortgage Term Interest Rate Mortgage Type Repayment Interest Only Calculate Repayments Results shown here Complete the form and click “calculate repayments” to see what your monthly repayments would be. Your results Your results are shown below based on the information you provided. To adjust the results, edit the form and click “calculate repayments” again. Your monthly repayments Total you'll repay over the term_
-
 ## Table of contents
 
 - [Overview](#overview)
@@ -30,12 +28,12 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](./src/assets/images/mortgage-calculator.jpeg)
 
 ### Links
 
 - Solution URL: [Github](https://github.com/samoina/mortgage-repayment-calculator-fem)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Samoina's mortage calculator app on vercel](https://samoina-mortgage-repayment-calculator.vercel.app/)
 
 ## My process
 
