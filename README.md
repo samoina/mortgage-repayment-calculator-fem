@@ -55,7 +55,5 @@ I managed my state using hookState, created Global state and displayed the resul
 
 ## Author
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/samoina)
+- Frontend Mentor - [@samoina](https://www.frontendmentor.io/profile/samoina)
 - Twitter - [@samoina](https://www.twitter.com/samoina)
-
-## Acknowledgments
