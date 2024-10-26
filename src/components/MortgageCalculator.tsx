@@ -76,7 +76,7 @@ where M is monthly payment, P is the principal amount, r is the monthly interest
 
 	return (
 		<>
-			<div className="flex md:mx-auto">
+			<div className="flex flex-col md:flex-row">
 				<div className="flex flex-1 flex-col justify-around m-4  b-2 pl-2 md:bg-white md:m-0 md:p-10 md:rounded-l-3xl">
 					<h1 className="font-bold text-xl">Mortgage Calculator</h1>
 					<p className="underline underline-offset-1 text-slate-700">
